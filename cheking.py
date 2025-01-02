@@ -1,12 +1,15 @@
 import os
 import time
 import shutil
+import argparse
+
 from PIL import Image
 import timm
 import torch
 from torchvision import transforms
 import requests
 from torch.utils.data import DataLoader, Dataset
+
 
 def load_imagenet_labels():
     url = "https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json"
@@ -46,11 +49,11 @@ def is_car_present_batch(batch_images, model, labels, car_classes, threshold=0.5
 def main(input_folder, output_file, no_cars_folder, batch_size=16):
     start_time = time.time()
 
-    # Определение устройства
+    # Если есть ведюха, инференсит на ней
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    # Загружаем предобученную модель
+    # Загрузка предобученной модели
     print("Loading model...")
     model = timm.create_model('resnet50', pretrained=True)
     model.to(device)
@@ -66,7 +69,7 @@ def main(input_folder, output_file, no_cars_folder, batch_size=16):
         transforms.Normalize(mean=model.default_cfg['mean'], std=model.default_cfg['std'])
     ])
 
-    # Категории автомобилей
+    # Категории автомобилей для фильтрации
     car_classes = [
         "convertible", "sports car", "minivan", "pickup truck",
         "ambulance", "fire engine", "cab", "jeep", "limousine",
@@ -87,7 +90,7 @@ def main(input_folder, output_file, no_cars_folder, batch_size=16):
     dataset = ImageDataset(image_paths, preprocess)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
 
-    # Создание папки для изображений без автомобилей
+    # Если папки для переноса нет, создаем ее
     os.makedirs(no_cars_folder, exist_ok=True)
 
     no_car_images = []
@@ -113,8 +116,6 @@ def main(input_folder, output_file, no_cars_folder, batch_size=16):
     print(f"Images without cars moved to {no_cars_folder}")
 
 if __name__ == "__main__":
-    import argparse
-
     parser = argparse.ArgumentParser(description="Detect images without cars.")
     parser.add_argument("--input_folder", type=str, help="Path to the input folder with images.")
     parser.add_argument("--output_file", default="cheking_result.txt", type=str, help="Path to the output file.")

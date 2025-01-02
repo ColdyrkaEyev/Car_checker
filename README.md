@@ -27,7 +27,7 @@ python cheking.py
 ```
 ---
 
-## 📜 Аргументы скрипта
+### 📜 Аргументы скрипта
 
 ```
 python cheking.py --input_folder <path_to_folder> --output_file <path_to_file> --no_cars_folder <path_to_folder>
