@@ -118,7 +118,7 @@ def main(input_folder, output_file, no_cars_folder, batch_size=16):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Detect images without cars.")
     parser.add_argument("--input_folder", type=str, help="Path to the input folder with images.")
-    parser.add_argument("--output_file", default="cheking_result.txt", type=str, help="Path to the output file.")
+    parser.add_argument("--output_file", default="checking_result.txt", type=str, help="Path to the output file.")
     parser.add_argument("--no_cars_folder", default="no_cars", type=str, help="Path to the folder for images without cars.")
     args = parser.parse_args()
 
