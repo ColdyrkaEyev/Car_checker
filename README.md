@@ -4,11 +4,9 @@
 
 Для фильтрации выбраны следующие классы:
         "convertible", "sports car", "minivan", "pickup truck",
-        "ambulance", "fire engine", "cab", "jeep", "limousine",
-        "car", "truck", "bus", "automobile", "taxi", "estate car",
-        "car wheel", "passenger car", "race car", "racing car",
-        "sports car", "sport car", "fire truck", "police van",
-        "police wagon".
+        "ambulance", "fire engine", "jeep", "limousine",
+        "car wheel", "passenger car", "race car","sports car",
+        "police van".
 
 ### ❗ Скрипт требует наличия подключения к сети интернет ❗
 
